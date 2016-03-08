@@ -103,35 +103,21 @@ public class AsyncJokeClient {
 				System.out.println("Hi " + name + " let me share with you some "
 						+ "of my best material.");
 				System.out.println("Press enter to get a joke or proverb: ");
-
+				new Scanner(System.in).nextLine();
+				new NumberClientWorker().start();
+				
 				/* Loop continues to get joke, proverb or 
 				 * maintenance warning as long as the user 
 				 * presses enter 
 				 */
-				do {
-					
-					String nums = "";
+				while (true) {
+
 					//wait for user to press enter
-					new Scanner(System.in).nextLine();
-					
-					/*
-					 * Do work while we wait for server response
-					 */
-					System.out.print("Enter numbers to sum: ");
-					nums = in.readLine(); // Get numbers from user
-				
-				    //Split the number string into an array 
-				    String numsArr[] = nums.split(" ");
-				    
-				    int result = 0; 
-				    
-				    for (String num : numsArr)
-				    	result += Integer.parseInt(num);
-				    System.out.println("Your sum is: " + result);
-					
 					clientSock = servsocket.accept();
 					new ClientWorker(clientSock).start();
-				} while (true); 
+					
+					new NumberClientWorker().start();
+				}
 			}
 		} catch (IOException x) {x.printStackTrace();}		
 	}

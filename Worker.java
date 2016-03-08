@@ -95,7 +95,7 @@ public class Worker extends Thread{
 			     while(true){
 			    	 try {
 					    	System.out.println("Sleeping for a bit...");
-							sleep(8000);
+							sleep(10000);
 							//start new connection at listening client 
 						} catch (InterruptedException e) {
 							e.printStackTrace();

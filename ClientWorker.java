@@ -12,17 +12,13 @@ public class ClientWorker extends Thread{
 	
 	
 	public void run(){
-		String serverName = "localhost";
-	
 	    try {
-	
 			//take to helper functions to fulfill request
 			getJokeOrProb() ;
 			clientSock.close();
 	    } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	private static void getJokeOrProb() {
@@ -31,12 +27,13 @@ public class ClientWorker extends Thread{
 		String textFromServer;
 		
 		try {
-			//Create filter I/O streams for the socket
+			//Create output streams for the socket
 			fromServer = 
 					new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
 
 			//Read up to four lines of response from server,
 			//and block while synchronously waiting
+			System.out.println("\n");
 			for (int i = 1; i <= 4; i++){
 				textFromServer = fromServer.readLine();
 				if (textFromServer != null)
