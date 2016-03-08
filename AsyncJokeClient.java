@@ -104,20 +104,18 @@ public class AsyncJokeClient {
 						+ "of my best material.");
 				System.out.println("Press enter to get a joke or proverb: ");
 				new Scanner(System.in).nextLine();
-				new NumberClientWorker().start();
+				
 				
 				/* Loop continues to get joke, proverb or 
 				 * maintenance warning as long as the user 
 				 * presses enter 
 				 */
-				while (true) {
-
+				do {
+					new NumberClientWorker().start();
 					//wait for user to press enter
 					clientSock = servsocket.accept();
 					new ClientWorker(clientSock).start();
-					
-					new NumberClientWorker().start();
-				}
+				} while(true);
 			}
 		} catch (IOException x) {x.printStackTrace();}		
 	}
