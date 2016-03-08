@@ -84,7 +84,7 @@ public class AsyncJokeClient {
 			System.out.flush(); //flush the stream
 			name = in.readLine(); //get's name from user
 			
-			sendNewPort(name, serverName, listeningPort);
+			
 			
 			/* Start listening for server to send 
 			    * the joke whenever it's ready and 
@@ -110,7 +110,7 @@ public class AsyncJokeClient {
 				do {
 					//wait for user to press enter
 					new Scanner(System.in).nextLine();
-					
+					sendNewPort(name, serverName, listeningPort);
 					/*
 					 * Do work while we wait for response
 					 */
@@ -133,6 +133,7 @@ public class AsyncJokeClient {
 
 					//take to helper functions to fulfill request
 					getJokeOrProb(name, serverName, listeningPort) ;
+					
 					System.out.println("\n");	
 				} while (true); 
 			}
@@ -177,14 +178,11 @@ public class AsyncJokeClient {
 	}
 	
 	private static void getJokeOrProb(String name, String serverName, int listeningPort) {
-		Socket sock;
+		
 		BufferedReader fromServer; 
 		String textFromServer;
 		
 		try {
-			/* Open our connection to server port. 
-			 * Choose same port number in JokeServer */
-			sock = new Socket(serverName, listeningPort);
 			
 			//Create filter I/O streams for the socket
 			fromServer = 
@@ -198,15 +196,13 @@ public class AsyncJokeClient {
 					System.out.println(textFromServer);
 			}
 			
-			//close socket
-			sock.close();
 			
 		}  catch (IOException x) {
 			System.out.println("Socket error.");
 			x.printStackTrace();
 		}
 		
-
+		
 		
 	}
 
