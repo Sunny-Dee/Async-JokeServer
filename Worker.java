@@ -91,36 +91,38 @@ public class Worker extends Thread{
 			     //break the connection
 			     sock.close(); 
 			     
-			     //start new connection at listening client //TODO turn to UDP
-			     Socket clientsock = new Socket(serverName, port);
 			     
-			    System.out.println("Socket is bound to listening port at client: " + clientsock.isBound());
+			     while(true){
+			    	 try {
+					    	System.out.println("Sleeping for a bit...");
+							sleep(8000);
+							//start new connection at listening client 
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+				     Socket clientsock = new Socket(serverName, port);
+			    	 System.out.println("Socket is bound to listening port at client: " + clientsock.isBound());
+				     //output goes to client socket
+				     out = new PrintStream(clientsock.getOutputStream());
 			     
-			     //output goes to client socket
-			     out = new PrintStream(clientsock.getOutputStream());
+
 			     
-			     
-			    /* Set our local tables to be the ones that belong 
-			     * to this particular client
-			     */
-			    jokes = clients.get(id).getJokeList();
-			    proverbs = clients.get(id).getProverbList();
-			    
-			    System.out.println("Sleeping for a bit...");
-			    try {
-					sleep(4000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			    
-			    /* get joke or proverb based on the mode
-			     * and update the client's file
-			     */
-			    System.out.println("Sending client request");
-			    printRequest(mode, out);
-			    
-			    clientsock.close();
+				    /* Set our local tables to be the ones that belong 
+				     * to this particular client
+				     */
+				    jokes = clients.get(id).getJokeList();
+				    proverbs = clients.get(id).getProverbList();
+				    
+				    
+				    
+				    /* get joke or proverb based on the mode
+				     * and update the client's file
+				     */
+				    System.out.println("Sending client request");
+				    printRequest(mode, out);
+				    clientsock.close();
+			     }
+			   
 
 			} catch (IOException x){  //catch exceptions. 
 				System.out.println("Server read error");

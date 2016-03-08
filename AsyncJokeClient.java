@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 
+
 /**
  * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
  * Java version used: 1.8 
@@ -56,7 +57,6 @@ public class AsyncJokeClient {
 		//variables to give the client a listening port. 
 		int q_len = 6; 
 		
-		
 		String serverName;
 		/* If server does not have an IP address
 		 * default to local host
@@ -78,22 +78,23 @@ public class AsyncJokeClient {
 		
 		
 		try {
-			System.out.print("\nPlease enter your name " +
-					"or (quit) to end: ");
-			
-			System.out.flush(); //flush the stream
-			name = in.readLine(); //get's name from user
-			
-			
-			
 			/* Start listening for server to send 
 			    * the joke whenever it's ready and 
 			    * in the mean time work some math. If there is a connection, 
 			    * spawn a mode client thread
 				* to take care of the mode administration
 				*/
-				ServerSocket servsocket = new ServerSocket(listeningPort, q_len);
-				clientSock = servsocket.accept();
+			ServerSocket servsocket = new ServerSocket(listeningPort, q_len);
+			
+			System.out.print("\nPlease enter your name " +
+					"or (quit) to end: ");
+			
+			System.out.flush(); //flush the stream
+			name = in.readLine(); //get's name from user
+			
+			sendNewPort(name, serverName, listeningPort);
+			
+			
 			
 			/* Only if user enters a word other than quit
 			 * will the request be fulfilled 
@@ -108,19 +109,17 @@ public class AsyncJokeClient {
 				 * presses enter 
 				 */
 				do {
+					
+					String nums = "";
 					//wait for user to press enter
 					new Scanner(System.in).nextLine();
-					sendNewPort(name, serverName, listeningPort);
-					/*
-					 * Do work while we wait for response
-					 */
-					String nums;
 					
+					/*
+					 * Do work while we wait for server response
+					 */
 					System.out.print("Enter numbers to sum: ");
+					nums = in.readLine(); // Get numbers from user
 				
-					/* Get numbers from user*/
-				    nums = in.readLine(); 
-				    
 				    //Split the number string into an array 
 				    String numsArr[] = nums.split(" ");
 				    
@@ -129,12 +128,9 @@ public class AsyncJokeClient {
 				    for (String num : numsArr)
 				    	result += Integer.parseInt(num);
 				    System.out.println("Your sum is: " + result);
-
-
-					//take to helper functions to fulfill request
-					getJokeOrProb(name, serverName, listeningPort) ;
 					
-					System.out.println("\n");	
+					clientSock = servsocket.accept();
+					new ClientWorker(clientSock).start();
 				} while (true); 
 			}
 		} catch (IOException x) {x.printStackTrace();}		
@@ -177,33 +173,6 @@ public class AsyncJokeClient {
 		
 	}
 	
-	private static void getJokeOrProb(String name, String serverName, int listeningPort) {
-		
-		BufferedReader fromServer; 
-		String textFromServer;
-		
-		try {
-			
-			//Create filter I/O streams for the socket
-			fromServer = 
-					new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
-			
-			//Read up to four lines of response from server,
-			//and block while synchronously waiting
-			for (int i = 1; i <= 4; i++){
-				textFromServer = fromServer.readLine();
-				if (textFromServer != null)
-					System.out.println(textFromServer);
-			}
-			
-			
-		}  catch (IOException x) {
-			System.out.println("Socket error.");
-			x.printStackTrace();
-		}
-		
-		
-		
-	}
+
 
 }
