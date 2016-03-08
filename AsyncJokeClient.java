@@ -83,7 +83,18 @@ public class AsyncJokeClient {
 			
 			System.out.flush(); //flush the stream
 			name = in.readLine(); //get's name from user
-						
+			
+			sendNewPort(name, serverName, listeningPort);
+			
+			/* Start listening for server to send 
+			    * the joke whenever it's ready and 
+			    * in the mean time work some math. If there is a connection, 
+			    * spawn a mode client thread
+				* to take care of the mode administration
+				*/
+				ServerSocket servsocket = new ServerSocket(listeningPort, q_len);
+				clientSock = servsocket.accept();
+			
 			/* Only if user enters a word other than quit
 			 * will the request be fulfilled 
 			 */
@@ -118,17 +129,7 @@ public class AsyncJokeClient {
 				    for (String num : numsArr)
 				    	result += Integer.parseInt(num);
 				    System.out.println("Your sum is: " + result);
-					    
-					sendNewPort(name, serverName, listeningPort);
-					/* Start listening for server to send 
-				    * the joke whenever it's ready and 
-				    * in the mean time work some math. If there is a connection, 
-				    * spawn a mode client thread
-					* to take care of the mode administration
-					*/
-					ServerSocket servsocket = new ServerSocket(listeningPort, q_len);
-					clientSock = servsocket.accept();
-					
+
 
 					//take to helper functions to fulfill request
 					getJokeOrProb(name, serverName, listeningPort) ;
