@@ -65,10 +65,7 @@ public class Worker extends Thread{
 			//input to the socket
 			in = new BufferedReader
 					(new InputStreamReader(sock.getInputStream()));
-			
-			
-			
-			
+
 			
 			try{
 				
@@ -88,13 +85,16 @@ public class Worker extends Thread{
 			     * to send the connection
 			     */
 			     int port = Integer.parseInt(in.readLine());
-			     String serverName = "localhost";
+			     System.out.println("Got client listening port: " + port);
+			     String serverName = "localhost"; //this can be expanded
 			     
 			     //break the connection
 			     sock.close(); 
 			     
 			     //start new connection at listening client //TODO turn to UDP
 			     Socket clientsock = new Socket(serverName, port);
+			     
+			    System.out.println("Socket is bound to listening port at client: " + clientsock.isBound());
 			     
 			     //output goes to client socket
 			     out = new PrintStream(clientsock.getOutputStream());
@@ -105,7 +105,8 @@ public class Worker extends Thread{
 			     */
 			    jokes = clients.get(id).getJokeList();
 			    proverbs = clients.get(id).getProverbList();
-
+			    
+			    System.out.println("Sleeping for a bit...");
 			    try {
 					sleep(4000);
 				} catch (InterruptedException e) {
@@ -116,6 +117,7 @@ public class Worker extends Thread{
 			    /* get joke or proverb based on the mode
 			     * and update the client's file
 			     */
+			    System.out.println("Sending client request");
 			    printRequest(mode, out);
 			    
 			    clientsock.close();
@@ -133,12 +135,21 @@ public class Worker extends Thread{
 
 	/* ***********Helper functions********** */
 	public void printRequest(String mode, PrintStream out){
-		if (mode.equals("m"))
-			out.println("WARNING: Server is temporarily unavailable. Check-back shortly.");
-		else if (mode.equals("p"))
-			out.println(chooseProverb());
-		else 
-			out.println(chooseJoke());
+		String str;
+		if (mode.equals("m")){
+			str = "WARNING: Server is temporarily unavailable. Check-back shortly.";
+			out.println(str);
+		}
+		else if (mode.equals("p")){
+			str = chooseProverb();
+			out.println(str);
+		}
+		else {
+			str = chooseJoke();
+			out.println(str);
+		}
+		
+		System.out.println(str);
 	}
 	
 	/* The following 4 functions help

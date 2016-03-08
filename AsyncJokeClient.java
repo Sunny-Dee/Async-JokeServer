@@ -48,12 +48,14 @@ public class AsyncJokeClient {
 	static final String id = UUID.randomUUID().toString();
 	static String name;
 	static Socket sock;
+	static int listeningPort = 4111;
+	static Socket clientSock;
 	
+	@SuppressWarnings("resource")
 	public static void main(String args[]){
 		//variables to give the client a listening port. 
 		int q_len = 6; 
-		int listeningPort = 4010;
-		Socket clientSock;
+		
 		
 		String serverName;
 		/* If server does not have an IP address
@@ -89,25 +91,7 @@ public class AsyncJokeClient {
 				System.out.println("Hi " + name + " let me share with you some "
 						+ "of my best material.");
 				System.out.println("Press enter to get a joke or proverb: ");
-				
-				/*Start listening for server to send 
-				 * the joke whenever it's ready and 
-				 * in the mean time work some math
-				 */
 
-				try{
-					@SuppressWarnings("resource")
-					ServerSocket servsock = new ServerSocket(listeningPort, q_len);
-					/* If there is a connection, spawn a mode client thread
-					 * to take care of the mode administration
-					*/
-					while(servsock.isBound()){  
-						clientSock = servsock.accept();
-						new ClientWorker(clientSock).start();
-					}
-				} catch (IOException ioe) {
-					System.out.println(ioe);}
-				
 				/* Loop continues to get joke, proverb or 
 				 * maintenance warning as long as the user 
 				 * presses enter 
@@ -115,29 +99,55 @@ public class AsyncJokeClient {
 				do {
 					//wait for user to press enter
 					new Scanner(System.in).nextLine();
+					
+					/*
+					 * Do work while we wait for response
+					 */
+					String nums;
+					
+					System.out.print("Enter numbers to sum: ");
+				
+					/* Get numbers from user*/
+				    nums = in.readLine(); 
+				    
+				    //Split the number string into an array 
+				    String numsArr[] = nums.split(" ");
+				    
+				    int result = 0; 
+				    
+				    for (String num : numsArr)
+				    	result += Integer.parseInt(num);
+				    System.out.println("Your sum is: " + result);
+					    
+					sendNewPort(name, serverName, listeningPort);
+					/* Start listening for server to send 
+				    * the joke whenever it's ready and 
+				    * in the mean time work some math. If there is a connection, 
+				    * spawn a mode client thread
+					* to take care of the mode administration
+					*/
+					ServerSocket servsocket = new ServerSocket(listeningPort, q_len);
+					clientSock = servsocket.accept();
+					
+
 					//take to helper functions to fulfill request
 					getJokeOrProb(name, serverName, listeningPort) ;
-					System.out.println("\n");	
+					System.out.println("Finished \n");	
 				} while (true); 
 			}
 		} catch (IOException x) {x.printStackTrace();}		
 	}
 	
-
-	private static void getJokeOrProb(String name, String serverName, int listeningPort) {
-		Socket sock;
-		BufferedReader fromServer; 
+	private static void sendNewPort(String name, String serverName, int listeningPort) {
+		Socket sock; 
 		PrintStream toServer;
-		String textFromServer;
 		
 		try {
 			/* Open our connection to server port. 
 			 * Choose same port number in JokeServer */
 			sock = new Socket(serverName, port);
 			
-			//Create filter I/O streams for the socket
-			fromServer = 
-					new BufferedReader(new InputStreamReader(sock.getInputStream()));
+			//Create filter input stream for the socket
 			toServer = new PrintStream(sock.getOutputStream());
 			
 			//Send name to server:
@@ -152,13 +162,44 @@ public class AsyncJokeClient {
 			toServer.println(listeningPort);
 			toServer.flush();
 			
-			//Read two or four lines of response from server,
+			
+			//close socket
+			sock.close();
+			
+		}  catch (IOException x) {
+			System.out.println("Socket error.");
+			x.printStackTrace();
+		}
+		
+
+		
+	}
+	
+	private static void getJokeOrProb(String name, String serverName, int listeningPort) {
+		Socket sock;
+		BufferedReader fromServer; 
+		String textFromServer;
+		
+		System.out.println("test");
+		try {
+			/* Open our connection to server port. 
+			 * Choose same port number in JokeServer */
+			sock = new Socket(serverName, listeningPort);
+			
+			//Create filter I/O streams for the socket
+			fromServer = 
+					new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
+			
+			textFromServer = fromServer.readLine();
+			
+			System.out.println(textFromServer);
+			//Read up to four lines of response from server,
 			//and block while synchronously waiting
-			for (int i = 1; i <= 4; i++){
-				textFromServer = fromServer.readLine();
-				if (textFromServer != null)
-					System.out.println(textFromServer);
-			}
+//			for (int i = 1; i <= 4; i++){
+//				textFromServer = fromServer.readLine();
+//				if (textFromServer != null)
+//					System.out.println(textFromServer);
+//			}
 			
 			//close socket
 			sock.close();
