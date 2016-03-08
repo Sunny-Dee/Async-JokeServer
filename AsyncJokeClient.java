@@ -132,7 +132,7 @@ public class AsyncJokeClient {
 
 					//take to helper functions to fulfill request
 					getJokeOrProb(name, serverName, listeningPort) ;
-					System.out.println("Finished \n");	
+					System.out.println("\n");	
 				} while (true); 
 			}
 		} catch (IOException x) {x.printStackTrace();}		
@@ -180,7 +180,6 @@ public class AsyncJokeClient {
 		BufferedReader fromServer; 
 		String textFromServer;
 		
-		System.out.println("test");
 		try {
 			/* Open our connection to server port. 
 			 * Choose same port number in JokeServer */
@@ -190,16 +189,13 @@ public class AsyncJokeClient {
 			fromServer = 
 					new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
 			
-			textFromServer = fromServer.readLine();
-			
-			System.out.println(textFromServer);
 			//Read up to four lines of response from server,
 			//and block while synchronously waiting
-//			for (int i = 1; i <= 4; i++){
-//				textFromServer = fromServer.readLine();
-//				if (textFromServer != null)
-//					System.out.println(textFromServer);
-//			}
+			for (int i = 1; i <= 4; i++){
+				textFromServer = fromServer.readLine();
+				if (textFromServer != null)
+					System.out.println(textFromServer);
+			}
 			
 			//close socket
 			sock.close();
