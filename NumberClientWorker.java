@@ -7,13 +7,14 @@ public class NumberClientWorker extends Thread{
 		BufferedReader bf = 
 				new BufferedReader(new InputStreamReader(System.in)); 
 		
+		/*
+		 * Do work while we wait for server response
+		 */
 		while(true){
 			System.out.flush();
 			String nums = "";
-			/*
-			 * Do work while we wait for server response
-			 */
-			System.out.print("Enter numbers to add: ");
+			
+			System.out.print("\nEnter numbers to add: ");
 			try {
 				// Get numbers from user
 				nums = bf.readLine();
@@ -23,6 +24,7 @@ public class NumberClientWorker extends Thread{
 			    
 			    int result = 0; 
 			    
+			    //Add the numbers to a result variable
 			    for (String num : numsArr)
 			    	result += Integer.parseInt(num);
 			    System.out.println("Your sum is: " + result);

@@ -5,35 +5,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
+ * Name: Deliana Escobari       Date: Tuesday March 8th, 2015
  * Java version used: 1.8 
  * Compile with command: javac Worker.java 
  * 		or java *.java once to compile all files in the whole folder
- * 
- * How to run this project:
- * 		In separate shell window open:
- * 				java JokeServer
- * 				java JokeClient
- * 				java JokeClientAdmin
- * 
- * 		All acceptable commands are displayed on the various consoles.
- * 		This runs across machines, in which case you have to pass the IP address of
- * 		the server to the clients. For example, if the server is running at
- * 		140.192.1.22 then you would type:
- * 				java JokeClient 140.192.1.22
- * 				java JokeClientAdmin 140.192.1.22
- * 
- * List of files needed for running the program.
- * 				JokeClient.java
- * 				JokeClientAdmin.java
- * 				JokeServer.java
- * 				ModeServer.java
- * 				ModeWorker.java
- * 				Worker.java
- * 				ClientState.java
- * 
- * Notes: Fulfills a client request, job, prover, or warning message, based on
- * the default mode or the mode specified by the user in JokeClientAdmin.
+
  */
 
 public class Worker extends Thread{
@@ -95,26 +71,25 @@ public class Worker extends Thread{
 			     while(true){
 			    	 try {
 					    	System.out.println("Sleeping for a bit...");
-							sleep(10000);
+							sleep(40000);
 							//start new connection at listening client 
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+			    	 
+			    	 //Connect to the socket listening on the client side
 				     Socket clientsock = new Socket(serverName, port);
+				     //Tell the user you made connection
 			    	 System.out.println("Socket is bound to listening port at client: " + clientsock.isBound());
-				     //output goes to client socket
+				     //output now goes to client socket
 				     out = new PrintStream(clientsock.getOutputStream());
-			     
-
 			     
 				    /* Set our local tables to be the ones that belong 
 				     * to this particular client
 				     */
 				    jokes = clients.get(id).getJokeList();
 				    proverbs = clients.get(id).getProverbList();
-				    
-				    
-				    
+				    	    
 				    /* get joke or proverb based on the mode
 				     * and update the client's file
 				     */
@@ -140,7 +115,7 @@ public class Worker extends Thread{
 		String str;
 		if (mode.equals("m")){
 			str = "WARNING: Server is temporarily unavailable. Check-back shortly.";
-			out.println(str);
+			out.println(str); 
 		}
 		else if (mode.equals("p")){
 			str = chooseProverb();

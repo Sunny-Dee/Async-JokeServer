@@ -10,34 +10,12 @@ import java.util.UUID;
 
 
 /**
- * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
+ * Name: Deliana Escobari       Date: Tuesday March 8th, 2015
  * Java version used: 1.8 
  * 
- *Compile with command: javac JokeSClient.java 
+ *Compile with command: javac AsyncJokeSClient.java 
  * 		or java *.java once to compile all files in the whole folder
- * Run with command: java JokeClient
- * 
- * How to run this project:
- * 		In separate shell window open:
- * 				java JokeServer
- * 				java JokeClient
- * 				java JokeClientAdmin
- * 
- * 		All acceptable commands are displayed on the various consoles.
- * 		This runs across machines, in which case you have to pass the IP address of
- * 		the server to the clients. For example, if the server is running at
- * 		140.192.1.22 then you would type:
- * 				java JokeClient 140.192.1.22
- * 				java JokeClientAdmin 140.192.1.22
- * 
- * List of files needed for running the program.
- * 				JokeClient.java
- * 				JokeClientAdmin.java
- * 				JokeServer.java
- * 				ModeServer.java
- * 				ModeWorker.java
- * 				Worker.java
- * 				ClientState.java
+ * Run with command: java AsyncJokeClient
  * 
  * Notes: This is the file the user uses to input her name and get a joke or proverb 
  * depending on the mode set by JokeClientAdmin. The default mode if nothing is setup 
@@ -103,16 +81,19 @@ public class AsyncJokeClient {
 				System.out.println("Hi " + name + " let me share with you some "
 						+ "of my best material.");
 				System.out.println("Press enter to get a joke or proverb: ");
+				
+				//wait for user to press enter
 				new Scanner(System.in).nextLine();
 				
 				
 				/* Loop continues to get joke, proverb or 
-				 * maintenance warning as long as the user 
-				 * presses enter 
+				 * maintenance warning. After the server sends something
+				 * it goes to sleep and that's when this loop fires a
+				 * number adding thread while waiting.
 				 */
 				do {
 					new NumberClientWorker().start();
-					//wait for user to press enter
+					
 					clientSock = servsocket.accept();
 					new ClientWorker(clientSock).start();
 				} while(true);
@@ -120,6 +101,14 @@ public class AsyncJokeClient {
 		} catch (IOException x) {x.printStackTrace();}		
 	}
 	
+	/**
+	 * This function sends the server information about the user. Most importantly, it sends
+	 * the listening port at the client so we can asynchronously send jokes. 
+	 * 
+	 * @param name the user name to send personalized jokes. 
+	 * @param serverName in this case I only had time to implement 'localhost'
+	 * @param listeningPort the client port --> 4111
+	 */
 	private static void sendNewPort(String name, String serverName, int listeningPort) {
 		Socket sock; 
 		PrintStream toServer;

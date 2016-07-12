@@ -15,6 +15,7 @@ public class ClientWorker extends Thread{
 	    try {
 			//take to helper functions to fulfill request
 			getJokeOrProb() ;
+			//close socket each time. 
 			clientSock.close();
 	    } catch (IOException e) {
 			e.printStackTrace();
@@ -27,7 +28,7 @@ public class ClientWorker extends Thread{
 		String textFromServer;
 		
 		try {
-			//Create output streams for the socket
+			//Create filter I/O streams for the socket
 			fromServer = 
 					new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
 

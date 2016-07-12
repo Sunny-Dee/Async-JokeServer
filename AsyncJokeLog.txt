@@ -1,0 +1,219 @@
+******************************************************************
+AsyncJokeServer output
+******************************************************************
+delianaescobari$ java AsyncJokeServer
+Joke Server starting up.
+Ready to brighten someone's day!
+Listening at port: 4001.
+Checking for some good stuff to share
+Checking for some good stuff to share
+Fulfilling request for Deliana id: aaa79ec9-283d-41c4-a20a-d41ac2dd0d1e
+Got client listening port: 4111
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+C. Deliana, you know what's ironic?
+Red, white, and blue stand for freedom until
+they are flashing behind you.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+D. A clean house is the sign of a broken computer.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+B. In the 21st century deleting history 
+has become more important than making it.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+E. Deliana, what did the spider do on the computer?
+Made a web-site!
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+A. I changed my password to "incorrect." 
+So whenever I forget what it is, the computer will say 
+"Your password is incorrect."
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+A. I changed my password to "incorrect." 
+So whenever I forget what it is, the computer will say 
+"Your password is incorrect."
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+D. A clean house is the sign of a broken computer.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+C. Deliana, you know what's ironic?
+Red, white, and blue stand for freedom until
+they are flashing behind you.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+E. Deliana, what did the spider do on the computer?
+Made a web-site!
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+B. In the 21st century deleting history 
+has become more important than making it.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+D. A clean house is the sign of a broken computer.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+E. Deliana, what did the spider do on the computer?
+Made a web-site!
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+B. In the 21st century deleting history 
+has become more important than making it.
+Sleeping for a bit...
+Socket is bound to listening port at client: true
+Sending client request
+
+Joke for Deliana
+C. Deliana, you know what's ironic?
+Red, white, and blue stand for freedom until
+they are flashing behind you.
+Sleeping for a bit...
+
+******************************************************************
+AsyncJokeClient output
+******************************************************************
+
+delianaescobari$ java AsyncJokeClient
+************************
+* Deliana's JokeServer *
+************************
+Is your name WIFI? Because I'm feeling a connection.
+
+Using server: localhost
+Listening at port: 4001
+
+Please enter your name or (quit) to end: Deliana
+Hi Deliana let me share with you some of my best material.
+Press enter to get a joke or proverb: 
+
+Enter numbers to add: 1 4 7
+Your sum is: 12
+Enter numbers to add: 4 6
+Your sum is: 10
+Enter numbers to add: 3 5
+Your sum is: 8
+Enter numbers to add: Enter numbers to add: 
+
+Joke for Deliana
+C. Deliana, you know what's ironic?
+Red, white, and blue stand for freedom until
+they are flashing behind you.
+
+
+
+Joke for Deliana
+D. A clean house is the sign of a broken computer.
+Enter numbers to add: 4 7 0
+Your sum is: 11
+
+
+Enter numbers to add: Joke for Deliana
+B. In the 21st century deleting history 
+has become more important than making it.
+
+
+Enter numbers to add: Joke for Deliana
+E. Deliana, what did the spider do on the computer?
+Made a web-site!
+
+
+Enter numbers to add: Joke for Deliana
+A. I changed my password to "incorrect." 
+So whenever I forget what it is, the computer will say 
+"Your password is incorrect."
+
+
+Joke for Deliana
+A. I changed my password to "incorrect." 
+So whenever I forget what it is, the computer will say 
+"Your password is incorrect."
+Enter numbers to add: 4 6
+Your sum is: 10
+Enter numbers to add: 
+
+Enter numbers to add: Joke for Deliana
+D. A clean house is the sign of a broken computer.
+
+
+Enter numbers to add: Joke for Deliana
+C. Deliana, you know what's ironic?
+Red, white, and blue stand for freedom until
+they are flashing behind you.
+
+
+Enter numbers to add: Joke for Deliana
+E. Deliana, what did the spider do on the computer?
+Made a web-site!
+
+
+Joke for Deliana
+B. In the 21st century deleting history 
+has become more important than making it.
+Enter numbers to add: 5 8 9
+
+
+Joke for Deliana
+D. A clean house is the sign of a broken computer.
+Enter numbers to add: 6 8 9
+
+
+Joke for Deliana
+E. Deliana, what did the spider do on the computer?
+Made a web-site!
+Enter numbers to add: 7 8
+
+
+Enter numbers to add: Joke for Deliana
+B. In the 21st century deleting history 
+has become more important than making it.
+7 8
+Your sum is: 15
+Enter numbers to add: Your sum is: 23
+Enter numbers to add: 
+
+Enter numbers to add: Joke for Deliana
+C. Deliana, you know what's ironic?
+Red, white, and blue stand for freedom until
+they are flashing behind you.
